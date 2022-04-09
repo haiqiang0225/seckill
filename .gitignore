@@ -216,7 +216,7 @@ gen
 docs/_book
 
 # TODO: where does this rule come from?
-test/
+#test/
 
 ### Lua template
 # Compiled Lua sources

@@ -10,6 +10,12 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+
+    <modules>
+        <module>cloud-provider-payment8001</module>
+    </modules>
+
+
     <!--  统一管理Jar包版本  -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -21,6 +27,8 @@
         <mysql.version>5.1.49</mysql.version>
         <druid.version>1.2.8</druid.version>
         <mybatis.spring.boot.version>2.2.2</mybatis.spring.boot.version>
+        <mybatis.plus.spring.boot.version>3.5.1</mybatis.plus.spring.boot.version>
+
     </properties>
 
     <!--  供子模块继承,作用:锁定版本+子module不需要写groupId和version,不会引入依赖  -->
@@ -67,6 +75,12 @@
                 <version>${druid.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+
             <!--  MyBatis-boot  -->
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
@@ -95,6 +109,26 @@
                 <optional>true</optional>
             </dependency>
 
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis.plus.spring.boot.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-devtools</artifactId>
+                <version>2.6.6</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/com.github.ulisesbocchio/jasypt-spring-boot-starter -->
+            <dependency>
+                <groupId>com.github.ulisesbocchio</groupId>
+                <artifactId>jasypt-spring-boot-starter</artifactId>
+                <version>3.0.4</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -107,7 +141,7 @@
                 <executions>
                     <execution>
                         <goals>
-                            <goal>repackage </goal>
+                            <goal>repackage</goal>
                         </goals>
                     </execution>
                 </executions>
