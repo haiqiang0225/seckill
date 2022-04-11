@@ -81,13 +81,12 @@ public class JasyptUtil {
     }
 
     public static void main(String[] args) {
-        String factor = "";
-        String plainText = "";
+        String factor = "miyao";
+        String plainText = "mima";
 
         String encryptWithSHA512Str = encryptWithSHA512(plainText, factor);
         String decryptWithSHA512Str = decryptWithSHA512(encryptWithSHA512Str, factor);
         System.out.println("采用AES256加密前原文密文：" + encryptWithSHA512Str);
         System.out.println("采用AES256解密后密文原文:" + decryptWithSHA512Str);
-        System.out.println("密钥加密" + encryptWithSHA512(factor, factor));
     }
 }
