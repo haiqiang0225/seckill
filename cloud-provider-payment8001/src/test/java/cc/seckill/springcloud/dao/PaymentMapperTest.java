@@ -15,8 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  * version: 1.0 <br>
  */
 @SpringBootTest(classes = PaymentMain.class)
-public class PaymentMapperTest extends TestBase {
-
+public class PaymentMapperTest extends TestBase{
 
     @Autowired
     PaymentMapper mapper;
