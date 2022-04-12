@@ -38,7 +38,7 @@
 
 - 新建项目
 
-<img src="../../../Documents/md_image/spring_cloud_start_03_eur_01.png" alt="image-20220411160459824" style="zoom:50%;" />
+<img src="https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/spring_cloud_start_03_eur_01.png" alt="image-20220411160459824" style="zoom:50%;" />
 
 - 修改`pom.xml`
 
@@ -156,7 +156,7 @@
 
 - 验证
 
-  <img src="../../../Documents/md_image/spring_cloud_start_03_eur_02.png" alt="image-20220411162730034" style="zoom:50%;" />
+  <img src="https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/spring_cloud_start_03_eur_02.png" alt="image-20220411162730034" style="zoom:50%;" />
 
 ### 修改`provider-payment`模块，让它注册为服务提供者
 
@@ -227,7 +227,7 @@
 
 - 启动,看到服务注册成功
 
-  <img src="../../../Documents/md_image/spring_cloud_start_03_eur_03.png" alt="image-20220411183240218" style="zoom:50%;" />
+  <img src="https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/spring_cloud_start_03_eur_03.png" alt="image-20220411183240218" style="zoom:50%;" />
 
   ### 修改`consumer-order`模块
 
@@ -274,13 +274,13 @@
 
   - 启动主启动类
 
-  <img src="../../../Documents/md_image/spring_cloud_start_03_eur_04.png" alt="image-20220411183644975" style="zoom:50%;" />
+  <img src="https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/spring_cloud_start_03_eur_04.png" alt="image-20220411183644975" style="zoom:50%;" />
 
 ## Eureka集群部署
 
 ### 工作原理
 
-![Eureka High level Architecture](../../../Documents/md_image/eureka_architecture.png)
+![Eureka High level Architecture](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/eureka_architecture.png)
 
 可以看到，`Eureka`集群是通过Replicate来同步数据的，因此不存在主节点和从节点，所有节点都是平等的。节点通过彼此互相注册来提高可用性，每个节点需要添加一个或多个有效的 serviceUrl 指向其他节点。
 
@@ -298,7 +298,7 @@
 
 - 修改`cloud-eureka-server7001`目录下的配置文件，复制三份。
 
-  <img src="../../../Documents/md_image/spring_cloud_start_03_eur_05.png" alt="image-20220411212023254" style="zoom:50%;" />
+  <img src="https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/spring_cloud_start_03_eur_05.png" alt="image-20220411212023254" style="zoom:50%;" />
 
   - eureka1:
 
@@ -352,23 +352,23 @@
 
   - 修改启动配置，指定SpringBoot的启动配置文件
 
-    <img src="../../../Documents/md_image/spring_cloud_start_03_eur_06.png" alt="image-20220411212416217" style="zoom:50%;" />
+    <img src="https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/spring_cloud_start_03_eur_06.png" alt="image-20220411212416217" style="zoom:50%;" />
 
   - 再复制两个
 
-    <img src="../../../Documents/md_image/spring_cloud_start_03_eur_07.png" alt="image-20220411212505950" style="zoom:50%;" />
+    <img src="https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/spring_cloud_start_03_eur_07.png" alt="image-20220411212505950" style="zoom:50%;" />
 
-    <img src="../../../Documents/md_image/spring_cloud_start_03_eur_08.png" alt="image-20220411212548091" style="zoom:50%;" />
+    <img src="https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/spring_cloud_start_03_eur_08.png" alt="image-20220411212548091" style="zoom:50%;" />
 
     第三个同理不放图了。
 
   - 分别启动
 
-    <img src="../../../Documents/md_image/spring_cloud_start_03_eur_09.png" alt="image-20220411212823860" style="zoom:50%;" />
+    <img src="https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/spring_cloud_start_03_eur_09.png" alt="image-20220411212823860" style="zoom:50%;" />
 
   - 查看
 
-    <img src="../../../Documents/md_image/spring_cloud_start_03_eur_10.png" alt="image-20220411212752759" style="zoom:50%;" />
+    <img src="https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/spring_cloud_start_03_eur_10.png" alt="image-20220411212752759" style="zoom:50%;" />
 
   集群部署完毕。
 
@@ -393,15 +393,15 @@
 
 - 启动模块
 
-  <img src="../../../Documents/md_image/spring_cloud_start_03_eur_11.png" alt="image-20220411213654999" style="zoom:50%;" />
+  <img src="https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/spring_cloud_start_03_eur_11.png" alt="image-20220411213654999" style="zoom:50%;" />
 
 - 完成。其它模块同样改动。
 
 - 测试模块：
 
-  <img src="../../../Documents/md_image/spring_cloud_start_03_eur_12.png" alt="image-20220411213856329" style="zoom:50%;" />
+  <img src="https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/spring_cloud_start_03_eur_12.png" alt="image-20220411213856329" style="zoom:50%;" />
 
-  <img src="../../../Documents/md_image/spring_cloud_start_03_eur_13.png" alt="image-20220411213934127" style="zoom:50%;" />
+  <img src="https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/spring_cloud_start_03_eur_13.png" alt="image-20220411213934127" style="zoom:50%;" />
 
   没有问题。
 
@@ -409,19 +409,19 @@
 
 - 同上，直接添加多个`yml`文件。
 
-  ![image-20220411214903640](../../../Documents/md_image/spring_cloud_start_03_eur_14.png)
+  ![image-20220411214903640](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/spring_cloud_start_03_eur_14.png)
 
 - 复制多个IDEA启动器
 
-  <img src="../../../Documents/md_image/spring_cloud_start_03_eur_15.png" alt="image-20220411215203662" style="zoom:50%;" />
+  <img src="https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/spring_cloud_start_03_eur_15.png" alt="image-20220411215203662" style="zoom:50%;" />
 
 - 启动
 
-  <img src="../../../Documents/md_image/spring_cloud_start_03_eur_16.png" alt="image-20220411220104698" style="zoom:50%;" />
+  <img src="https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/spring_cloud_start_03_eur_16.png" alt="image-20220411220104698" style="zoom:50%;" />
 
 - 测试
 
-  <img src="../../../Documents/md_image/spring_cloud_start_03_eur_17.png" alt="image-20220411220052171" style="zoom:50%;" />
+  <img src="https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/spring_cloud_start_03_eur_17.png" alt="image-20220411220052171" style="zoom:50%;" />
 
 ## 修改服务消费者，走注册中心
 
@@ -452,13 +452,13 @@
 
   此时还不能访问，很明显，RestTemplate没有为我们做负载均衡，或者说并没有权利决定调用服务背后的哪个真正服务提供者。
 
-  <img src="../../../Documents/md_image/spring_cloud_start_03_eur_18.png" alt="image-20220411220714195" style="zoom:50%;" />
+  <img src="https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/spring_cloud_start_03_eur_18.png" alt="image-20220411220714195" style="zoom:50%;" />
 
 - 开启`LoadBalance`负载均衡，默认ip轮询，每次调用会发现是不一样的端口号即不一样的主机提供的服务（虽然我们还是单机但是可以这么理解）。
 
   修改配置类：
 
-  <img src="../../../Documents/md_image/spring_cloud_start_03_eur_21.png" alt="image-20220411221148170" style="zoom:50%;" />
+  <img src="https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/spring_cloud_start_03_eur_21.png" alt="image-20220411221148170" style="zoom:50%;" />
 
   ```java
   @Configuration
@@ -474,9 +474,9 @@
 
   
 
-  <img src="../../../Documents/md_image/spring_cloud_start_03_eur_19.png" alt="image-20220411220936444" style="zoom:50%;" />
+  <img src="https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/spring_cloud_start_03_eur_19.png" alt="image-20220411220936444" style="zoom:50%;" />
 
-  <img src="../../../Documents/md_image/spring_cloud_start_03_eur_20.png" alt="image-20220411221009543" style="zoom:50%;" />
+  <img src="https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/spring_cloud_start_03_eur_20.png" alt="image-20220411221009543" style="zoom:50%;" />
 
 
 
@@ -500,7 +500,7 @@
       prefer-ip-address: true
   ```
 
-  <img src="../../../Documents/md_image/spring_cloud_start_03_eur_22.png" alt="image-20220411222001612" style="zoom:50%;" />
+  <img src="https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/spring_cloud_start_03_eur_22.png" alt="image-20220411222001612" style="zoom:50%;" />
 
 
 
@@ -620,7 +620,7 @@
 
 - 测试：
 
-  <img src="../../../Documents/md_image/spring_cloud_start_03_eur_23.png" alt="image-20220411223734960" style="zoom:50%;" />
+  <img src="https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/spring_cloud_start_03_eur_23.png" alt="image-20220411223734960" style="zoom:50%;" />
 
 
 
