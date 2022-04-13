@@ -1,3 +1,4 @@
+[toc]
 # SpringCloud-03：Eureka服务注册与发现
 
 [项目Github地址](https://github.com/haiqiang0225/seckill)
@@ -18,7 +19,9 @@
 
 [Netflex官方文档](https://github.com/Netflix/eureka/wiki/Eureka-at-a-glance)
 
-![Eureka High level Architecture](../../../Documents/md_image/eureka_architecture.png)
+> tips:现在Eureka已经停止更新了，后续会修改成阿里的Nacos做注册中心。
+
+![Eureka High level Architecture](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/eureka_architecture.png)
 
 可以看到，`Eureka`作为注册中心分为两个部分：`Eureka Server`和`Eureka Client`。Eureka Client会发起Register请求将自身注册到注册中心，这样其他Eureka client通过Get Registry请求就能获取到新注册应用的相关信息。
 

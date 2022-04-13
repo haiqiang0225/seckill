@@ -1,5 +1,7 @@
 # SpringCloud-04: 实现客户端负载均衡
 
+[项目Github地址](https://github.com/haiqiang0225/seckill)
+
 ## 负载均衡
 
 - 概念
