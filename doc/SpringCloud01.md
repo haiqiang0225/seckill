@@ -4,6 +4,8 @@
 
 [项目Github地址](https://github.com/haiqiang0225/seckill)
 
+//TODO: 添加项目用到的技术栈
+
 ## 父项目搭建
 
 - 新建工程，选择JDK版本和项目骨架，我这里是用maven构建的：

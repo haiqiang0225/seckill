@@ -13,3 +13,20 @@ eureka:
       defaultZone: http://eureka7001.com:7001/eureka,
         http://eureka7002.com:7002/eureka,
         http://eureka7003.com:7003/eureka,
+
+feign:
+  client:
+    config:
+      default: # OpenFeign默认配置
+        connectTimeout: 1000  # 默认建立连接的超时时间
+        readTimeout: 1000     # 默认方法调用超时时间
+        loggerLevel: BASIC    # 日志打印级别
+      CLOUD-PAYMENT-SERVICE:
+        connectTimeout: 1000  # 默认建立连接的超时时间
+        readTimeout: 5000     # 默认方法调用超时时间
+        loggerLevel: BASIC
+
+logging:
+  level:
+    root: info
+    cc.seckill.springcloud.service.PaymentFeignService: debug
