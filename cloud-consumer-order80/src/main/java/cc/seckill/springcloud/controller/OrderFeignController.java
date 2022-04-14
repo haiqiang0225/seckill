@@ -27,9 +27,20 @@ public class OrderFeignController {
     }
 
 
-    @GetMapping(value = "/consumer/feign/timeout")
+    @GetMapping(value = "/consumer/feign/payment/timeout")
     public String paymentFeignTimeout() {
         // 默认等待一秒钟
         return paymentFeignService.paymentFeignTimeout();
     }
+
+
+    @GetMapping(value = "/consumer/payment/hyx/get/{id}")
+    String paymentInfoOK(@PathVariable("id") Long id) {
+        return paymentFeignService.paymentInfoOK(id);
+    };
+
+    @GetMapping(value = "/consumer/payment/hyx/timeout/get/{id}")
+    String paymentInfoTimeout(@PathVariable("id") Long id) {
+        return paymentFeignService.paymentInfoTimeout(id);
+    };
 }

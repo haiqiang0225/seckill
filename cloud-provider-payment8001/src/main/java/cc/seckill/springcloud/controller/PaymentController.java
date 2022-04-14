@@ -96,6 +96,20 @@ public class PaymentController {
         return serverPort;
     }
 
+    @GetMapping(value = "/payment/hyx/get/{id}")
+    public String paymentInfoOK(@PathVariable("id") Long id) {
+        String result = paymentService.paymentInfoOk(id);
+        log.info("*****result : {}", result);
+        return result;
+    }
+
+    @GetMapping(value = "/payment/hyx/timeout/get/{id}")
+    public String paymentInfoTimeout(@PathVariable("id") Long id) {
+        String result = paymentService.paymentInfoTimeout(id);
+        log.info("*****result : {}", result);
+        return result;
+    }
+
 
     /*    setters    */
 
