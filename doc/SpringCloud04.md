@@ -44,7 +44,7 @@
 
 - 添加`CustomLoadBalancerConfiguration.java`需要注意的是该类不能添加`@Configuration`注解也不能在`@ComponentScan`之外，即只能放在主启动类的扫描目录之下。
 
-  <img src="../../../Documents/md_image/spring_cloud_start_04_lb_01.png" alt="image-20220412194951392" style="zoom:50%;" />
+  <img src="https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/spring_cloud_start_04_lb_01.png" alt="image-20220412194951392" style="zoom:50%;" />
 
   ```java
   public class CustomLoadBalancerConfiguration {

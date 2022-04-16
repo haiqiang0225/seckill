@@ -12,4 +12,11 @@ public interface PaymentService {
     int create(Payment payment);
 
     Payment getPaymentById(Long id);
+
+    String paymentInfoOk(Long id);
+
+    String paymentInfoTimeout(Long id);
+
+    String paymentCircuitBreaker(Long id);
+
 }
