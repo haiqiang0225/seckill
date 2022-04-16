@@ -15,6 +15,8 @@ eureka:
 #        http://eureka7003.com:7003/eureka,
 
 feign:
+  circuitbreaker:
+    enabled: true
   client:
     config:
       default: # OpenFeign默认配置
@@ -25,6 +27,7 @@ feign:
         connectTimeout: 1000  # 默认建立连接的超时时间
         readTimeout: 5000     # 默认方法调用超时时间
         loggerLevel: BASIC
+
 
 logging:
   level:

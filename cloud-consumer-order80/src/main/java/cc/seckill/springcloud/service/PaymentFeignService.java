@@ -1,6 +1,7 @@
 package cc.seckill.springcloud.service;
 
 import cc.seckill.springcloud.entities.Result;
+import cc.seckill.springcloud.service.impl.PaymentHystrixService;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * version: 1.0 <br>
  */
 @Component
-@FeignClient(name = "CLOUD-PAYMENT-SERVICE")
+@FeignClient(name = "CLOUD-PAYMENT-SERVICE", fallback = PaymentHystrixService.class)
 public interface PaymentFeignService {
 
     @GetMapping(value = "/payment/get/{id}")
