@@ -1,0 +1,38 @@
+server:
+  port: 9527
+
+
+spring:
+  main:
+    web-application-type: reactive
+  application:
+    name: cloud-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true                # 使用微服务名进行动态路由
+      routes:
+        - id: payment_route            # 路由的id,要求唯一
+#          uri: http://localhost:8001   # 转发地址
+          uri: lb://cloud-payment-service
+          predicates:                  # 断言,匹配后才进行转发
+            - Path=/payment/**
+
+          filters:
+            - AddRequestHeader=X-Request-red, blue
+
+
+#        - id: payment_route2
+#            uri: http://localhost:8001
+#            predicates:
+#              - Path=/payment/get/**
+
+eureka:
+  instance:
+    hostname: cloud-gateway-service
+    instance-id: cloud-gateway-service
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka,
