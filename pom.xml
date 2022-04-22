@@ -17,6 +17,9 @@
         <module>cloud-api-commons</module>
         <module>cloud-eureka-server7001</module>
         <module>cloud-gateway9527</module>
+        <module>cloud-config-nacos-client3377</module>
+        <module>cloud-provider-nacos-payment9001</module>
+        <module>cloud-consumer-nacos-order80</module>
     </modules>
 
 
@@ -63,6 +66,8 @@
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
                 <version>2021.0.1.0</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
 
             <!--  mysql  -->
