@@ -1,6 +1,7 @@
 package cc.seckill.springcloud.controller;
 
 import cc.seckill.springcloud.entities.Result;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,7 @@ public class OrderNacosController {
 
 
     @GetMapping("/consumer/payment/nacos/get/{id}")
+    @SentinelResource()
     public Result paymentInfo(@PathVariable("id") Long id) {
         return restTemplate.getForObject(serverURL + "/payment/nacos/get/" + id,
                 Result.class);

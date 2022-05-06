@@ -11,7 +11,10 @@ spring:
       discovery:
         #        server-addr: localnacos:8848
         server-addr: localnacos:1111  # nacos 集群
-
+    sentinel:
+      transport:
+        dashboard: seckill.cc:8888
+        port: 8719
 
 management:
   endpoints:

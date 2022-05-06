@@ -61,4 +61,12 @@ public class Result extends HashMap<String, Object> {
         super.put(key, value);
         return this;
     }
+
+    public void code(int code) {
+        put("code", code);
+    }
+
+    public void msg(String msg) {
+        put("msg", msg);
+    }
 }
