@@ -1,0 +1,71 @@
+server:
+  port: 2002
+
+spring:
+  application:
+    name: seata-storage-service
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: seckill.cc:1111
+
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource        # 数据源操作类型
+    driver-class-name: org.gjt.mm.mysql.Driver          # mysql 驱动
+    url: jdbc:mysql://tx_cloud:3306/seata_storage?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: ENC(JQaDTMkm+6SfkR02THGL4ir9FQ+CdlT+Q1c1i1beugd3VVULMR19YBfiksl7+xoP)
+    druid:
+      test-while-idle: false
+
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: cc.seckill.srpingcloud.entities
+
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:mapper/*.xml
+
+jasypt:
+  encryptor:
+    #    password:
+    algorithm: PBEWITHHMACSHA512ANDAES_256
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 1000
+        readTimeout: 1000
+        loggerLevel: basic
+
+seata:
+  enabled: true
+  enable-auto-data-source-proxy: true #是否开启数据源自动代理,默认为true
+  tx-service-group: test-tx-group  #要与配置文件中的vgroupMapping一致
+  registry: #registry根据seata服务端的registry配置
+    type: nacos #默认为file
+    nacos:
+      application: seata-server #配置自己的seata服务
+      server-addr: seckill.cc:1111 #根据自己的seata服务配置
+      username: nacos
+      password: ENC(JQaDTMkm+6SfkR02THGL4ir9FQ+CdlT+Q1c1i1beugd3VVULMR19YBfiksl7+xoP)
+      namespace: 2fa7bcca-4687-4b7d-9434-1c8a0df249df  # seata-server在nacos的命名空间ID
+      cluster: default # 配置自己的seata服务cluster, 默认为 default
+      group: SEATA_GROUP    # seata-server在nacos的分组
+  config:
+    type: nacos #默认file,如果使用file不配置下面的nacos,直接配置seata.service
+    nacos:
+      server-addr: seckill.cc:1111 #配置自己的nacos地址
+      group: SEATA_GROUP #配置自己的dev
+      username: nacos
+      password: ENC(JQaDTMkm+6SfkR02THGL4ir9FQ+CdlT+Q1c1i1beugd3VVULMR19YBfiksl7+xoP)
+      namespace: 2fa7bcca-4687-4b7d-9434-1c8a0df249df
+
+      #配置自己的dataId,由于搭建服务端时把客户端的配置也写在了seataServer.properties,
+      # 所以这里用了和服务端一样的配置文件,实际客户端和服务端的配置文件分离出来更好
+      dataId: seataServer.properties

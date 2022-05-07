@@ -62,11 +62,13 @@ public class Result extends HashMap<String, Object> {
         return this;
     }
 
-    public void code(int code) {
+    public Result code(int code) {
         put("code", code);
+        return this;
     }
 
-    public void msg(String msg) {
+    public Result msg(String msg) {
         put("msg", msg);
+        return this;
     }
 }
