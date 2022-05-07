@@ -10,7 +10,7 @@
 
 Github下载jar包到本地。
 
-![image-20220504170522278](../../../Documents/tmp/springcloud09_sentinel_01.png)
+![image-20220504170522278](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/image-20220504170522278.png)
 
 启动：
 
@@ -20,11 +20,11 @@ java -jar sentinel-dashboard-1.8.4.jar --server.port=8888
 
 浏览器访问：
 
-![image-20220504171720249](../../../Documents/tmp/springcloud09_sentinel_02.png)
+![image-20220504171720249](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/image-20220504171720249.png)
 
 默认账号密码都是`sentinel`。
 
-![image-20220504171857456](../../../Documents/tmp/springcloud09_sentinel_03.png)
+![image-20220504171857456](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/image-20220504171857456.png)
 
 Maven依赖：
 
@@ -96,9 +96,9 @@ public class FlowLimitController {
 
 访问一下：
 
-![image-20220504192719151](../../../Documents/tmp/springcloud09_sentinel_04.png)
+![image-20220504192719151](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/springcloud09_sentinel_04.png)
 
-![image-20220504193352125](../../../Documents/tmp/springcloud09_sentinel_05.png)
+![image-20220504193352125](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/image-20220504193352125.png)
 
 ## 相关功能
 
@@ -108,11 +108,11 @@ public class FlowLimitController {
 
 所有访问过的链路（懒加载）都会添加
 
-![image-20220504193753868](../../../Documents/tmp/springcloud09_sentinel_06.png)
+![image-20220504193753868](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/image-20220504193753868.png)
 
 ### 流控规则
 
-![image-20220504193736890](../../../Documents/tmp/springcloud09_sentinel_07.png)
+![image-20220504193736890](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/springcloud09_sentinel_07.png)
 
 - 资源名：默认请求路径，要求唯一
 - 针对来源：Sentinel可以针对调用者进行限流，填写微服务名称，默认default代表不区分来源
@@ -131,17 +131,17 @@ public class FlowLimitController {
 
 现在限制testA的调用QPS上限为1，快速失败，效果如下：
 
-![image-20220504195952957](../../../Documents/tmp/springcloud09_sentinel_08.png)
+![image-20220504195952957](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/image-20220504195952957.png)
 
 ### 熔断降级规则
 
 [官方wiki](https://github.com/alibaba/Sentinel/wiki/%E7%86%94%E6%96%AD%E9%99%8D%E7%BA%A7)
 
-![image-20220504212659432](../../../Documents/tmp/springcloud09_sentinel_09.png)
+![image-20220504212659432](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/springcloud09_sentinel_09.png)
 
-![image-20220504213902717](../../../Documents/tmp/springcloud09_sentinel_10.png)
+![image-20220504213902717](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/springcloud09_sentinel_10.png)
 
-![image-20220504213926973](../../../Documents/tmp/springcloud09_sentinel_11.png)
+![image-20220504213926973](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/image-20220504213926973.png)
 
 - 慢调用比例 (`SLOW_REQUEST_RATIO`)
 
@@ -159,7 +159,7 @@ public class FlowLimitController {
 
 [官方wiki](https://github.com/alibaba/Sentinel/wiki/%E7%83%AD%E7%82%B9%E5%8F%82%E6%95%B0%E9%99%90%E6%B5%81)
 
-![image-20220504214247340](../../../Documents/tmp/springcloud09_sentinel_12.png)
+![image-20220504214247340](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/image-20220504214247340.png)
 
 热点即经常访问的数据。很多时候我们希望统计某个热点数据中访问频次最高的 Top K 数据，并对其访问进行限制。比如：
 
@@ -198,21 +198,21 @@ public class FlowLimitController {
 
 Sentinel配置：
 
-![image-20220505105601635](../../../Documents/tmp/springcloud09_sentinel_13.png)
+![image-20220505105601635](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/image-20220505105601635.png)
 
-![image-20220505105635597](../../../Documents/tmp/springcloud09_sentinel_14.png)
+![image-20220505105635597](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/image-20220505105635597.png)
 
 将第一个参数`p1`删除后，继续访问，可以发现规则不再生效。
 
-![image-20220505105742615](../../../Documents/tmp/springcloud09_sentinel_15.png)
+![image-20220505105742615](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/springcloud09_sentinel_15.png)
 
 参数例外项：当被监控的参数是某个特定的值时，应用这里配置的规则而不是通用的规则。
 
-![image-20220505110422467](../../../Documents/tmp/springcloud09_sentinel_16.png)
+![image-20220505110422467](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/image-20220505110422467.png)
 
 可以发现对于p1=10086时，每秒点击两三下不会触发block方法。而其他参数值仍然会触发block方法。
 
-![image-20220505110509116](../../../Documents/tmp/springcloud09_sentinel_17.png)
+![image-20220505110509116](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/springcloud09_sentinel_17.png)
 
 ### 系统规则/系统自适应限流
 
@@ -220,7 +220,7 @@ Sentinel配置：
 
 >  Sentinel 系统自适应限流从整体维度对应用入口流量进行控制，结合应用的 Load、CPU 使用率、总体平均 RT、入口 QPS 和并发线程数等几个维度的监控指标，通过自适应的流控策略，让系统的入口流量和系统的负载达到一个平衡，让系统尽可能跑在最大吞吐量的同时保证系统整体的稳定性。
 
-![image-20220505144110689](../../../Documents/tmp/springcloud09_sentinel_18.png)
+![image-20220505144110689](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/image-20220505144110689.png)
 
 - **LOAD自适应（仅对 Linux/Unix-like 机器生效）**
 
@@ -248,7 +248,7 @@ Sentinel配置：
 
 黑名单/白名单。
 
-![image-20220505153449028](../../../Documents/tmp/springcloud09_sentinel_19.png)
+![image-20220505153449028](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/image-20220505153449028.png)
 
 
 
