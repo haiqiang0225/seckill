@@ -10,6 +10,50 @@
 
 ## Seata
 
+### Seata支持的分布式事务模式
+
+- AT模式
+
+    2PC的变种，一阶段业务数据和回滚日志记录在同一个本地事务中提交，释放本地锁和连接资源。二阶段进行提交或者根据undo_log回滚。
+
+- TCC模式
+
+    TCC（Try Confirm Cancel）是应用层的两阶段提交。一阶段为Try，第二阶段为Confirm或者Cancel。每个业务逻辑都需要实现Try、Confirm和Cancel操作。代码侵入性强。
+
+- SAGA模式
+
+    SAGA事务的思想是将长事务拆分为多个本地短事务并依次正常提交，如果所有短事务均执行成功，那么分布式事务提交；如果出现某个参与者执行失败，则由Saga事务协调器进行回滚。
+
+- XA模式
+
+    XA 协议是由 X/Open 组织提出的分布式事务处理规范，主要定义了事务管理器 TM 和局部资源管理器 RM 之间的接口。目前主流的数据库，比如 oracle、DB2 都是支持 XA 协议的。mysql 从 5.0 版本开始，innoDB 存储引擎已经支持 XA 协议。
+
+    数据库XA语法：
+
+    ```sql
+    XA {START|BEGIN} xid [JOIN|RESUME]
+    
+    XA END xid [SUSPEND [FOR MIGRATE]]
+    
+    XA PREPARE xid
+    
+    XA COMMIT xid [ONE PHASE]
+    
+    XA ROLLBACK xid
+    
+    XA RECOVER [FORMAT=['RAW'|'SQL']]
+    
+    xid: gtrid [, bqual [, formatID ]]
+    ```
+
+    > [6 张图带你彻底搞懂分布式事务 XA 模式](https://baijiahao.baidu.com/s?id=1698550212539924249&wfr=spider&for=pc)
+
+    
+
+AT模式、XA模式是业务无侵入的，而TCC模式和Saga是业务侵入的。
+
+Seata分布式事务默认是AT模式。
+
 术语：
 
 - Transaction ID XID
@@ -18,25 +62,26 @@
 
 - TC (Transaction Coordinator) - 事务协调者
 
-维护全局和分支事务的状态，驱动全局事务提交或回滚。
+维护全局和分支事务的状态，驱动全局事务提交或回滚。就是seata server。
 
 - TM (Transaction Manager) - 事务管理器
 
-定义全局事务的范围：开始全局事务、提交或回滚全局事务。
+定义全局事务的范围：开始全局事务、提交或回滚全局事务。`@GlobalTransactional`注解的业务，也就是事务发起方。
 
 - RM (Resource Manager) - 资源管理器
 
-管理分支事务处理的资源，与TC交谈以注册分支事务和报告分支事务的状态，并驱动分支事务提交或回滚。
+管理分支事务处理的资源，与TC交谈以注册分支事务和报告分支事务的状态，并驱动分支事务提交或回滚。事务的参与方，简单理解就是TM业务中，所有被调用的微服务，都作为RM角色。
 
 ![image](https://user-images.githubusercontent.com/68344696/145942191-7a2d469f-94c8-4cd2-8c7e-46ad75683636.png)
 
 处理过程：
 
-- TM向TC申请开启一个全局事务，全局事务创建成功返回一个全局唯一的XID；
+- `TM`向`TC`申请开启一个全局事务，全局事务创建成功返回一个全局唯一的XID；
 - XID在微服务调用链路的上下文中传播；
-- RM向TC注册分支事务，将其纳入XID对应全局事务的管辖；
-- TM向TC发起针对XID的全局提交或回滚决议；
-- TC调度XID下管辖的全部分支事务完成提交或回滚请求。
+- `RM`向`TC`注册分支事务，将其纳入XID对应全局事务的管辖；
+- `RM`向`TC`报告分支事务状态；
+- `TC`调度XID下管辖的全部分支事务由`RM`完成提交或回滚请求；
+- `TM`结束全局事务。
 
 ## Seata安装
 
@@ -81,11 +126,11 @@ config {
 
 切换到Nacos，创建一个新的命名空间，记住命名空间ID。
 
-![image-20220506203508602](../../../Documents/tmp/springcloud10_seata_01.png)
+![image-20220506203508602](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/springcloud10_seata_01.png)
 
 添加配置文件：
 
-![image-20220506203634080](../../../Documents/tmp/springcloud10_seata_02.png)
+![image-20220506203634080](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/springcloud10_seata_02.png)
 
 内容如下：
 
@@ -289,7 +334,7 @@ INSERT INTO `distributed_lock` (lock_key, lock_value, expire) VALUES ('TxTimeout
 nohup bash bin/seata-server.sh -p 8091 -h 可以ping通的IP &
 ```
 
-![image-20220506204144984](../../../Documents/tmp/springcloud10_seata_03.png)
+![image-20220506204144984](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/springcloud10_seata_03.png)
 
 Nacos中如果能看到对应的服务，说明安装启动成功。
 
@@ -636,7 +681,7 @@ CREATE TABLE `undo_log` (
 
 - `service`：
 
-    ![image-20220507153202783](../../../Documents/tmp/springcloud10_seata_04.png)
+    ![image-20220507153202783](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/springcloud10_seata_04.png)
 
     ```java
     public interface OrderService {
@@ -1386,21 +1431,21 @@ CREATE TABLE `undo_log` (
 
 浏览器输入：`http://localhost:2001/order/create?userId=1&productId=1&count=10&money=100`
 
-![image-20220507172606405](../../../Documents/tmp/springcloud10_seata_05.png)
+![image-20220507172606405](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/image-20220507172606405.png)
 
 查看对应表变化：
 
 - order表多了一条记录：
 
-![image-20220507172646661](../../../Documents/tmp/springcloud10_seata_06.png)
+![image-20220507172646661](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/springcloud10_seata_06.png)
 
 - storage表记录变化正常
 
-    ![image-20220507172721002](../../../Documents/tmp/springcloud10_seata_07.png)
+    ![image-20220507172721002](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/springcloud10_seata_07.png)
 
 - account表记录变化正常
 
-    ![image-20220507172750718](../../../Documents/tmp/springcloud10_seata_08.png)
+    ![image-20220507172750718](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/springcloud10_seata_08.png)
 
 因为我们这个调用是单线程的，所以在每个微服务都不出异常的情况下，是没问题的。
 
@@ -1442,11 +1487,11 @@ public class AccountServiceImpl implements AccountService {
 
 再次调用发现报错：
 
-![image-20220507173337535](../../../Documents/tmp/springcloud10_seata_09.png)
+![image-20220507173337535](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/image-20220507173337535.png)
 
 查看订单：
 
-![image-20220507185103312](../../../Documents/tmp/springcloud10_seata_10.png)
+![image-20220507185103312](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/image-20220507185103312.png)
 
 可以看到新插入的订单状态为`NULL`，说明`accountService.decrease(order.getUserId(), order.getMoney());`这句之后的语句没有执行（因为这句报错了，超时）
 
@@ -1473,11 +1518,11 @@ public class AccountServiceImpl implements AccountService {
 
 从控制栏也能看出确实报错了。
 
-![image-20220507185233336](../../../Documents/tmp/springcloud10_seata_11.png)
+![image-20220507185233336](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/image-20220507185233336.png)
 
 但是storage表和account表是正常的（account表也有可能不正常，如果Feign配置了超时重试的话）
 
-![image-20220507185340783](../../../Documents/tmp/springcloud10_seata_12.png)
+![image-20220507185340783](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/image-20220507185340783.png)
 
 在业务方法上添加`@GlobalTransactional`注解，即可开启全局事务。
 
@@ -1505,15 +1550,15 @@ public class AccountServiceImpl implements AccountService {
 
 重启后，再次执行
 
-![image-20220507190314481](../../../Documents/tmp/springcloud10_seata_13.png)
+![image-20220507190314481](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/image-20220507190314481.png)
 
 可以看到仍然是报错了，但是这个时候再查看数据库
 
-![image-20220507190344135](../../../Documents/tmp/springcloud10_seata_14.png)
+![image-20220507190344135](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/image-20220507190344135.png)
 
-![image-20220507190400230](../../../Documents/tmp/springcloud10_seata_15.png)
+![image-20220507190400230](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/image-20220507190400230.png)
 
-![image-20220507190418489](../../../Documents/tmp/springcloud10_seata_16.png)
+![image-20220507190418489](https://haiqiang-picture.oss-cn-beijing.aliyuncs.com/blog/image-20220507190418489.png)
 
 三个表都是正常的，没有再发生不一致现象。
 
